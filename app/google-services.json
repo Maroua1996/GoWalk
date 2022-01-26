@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "722206354790",
+    "project_id": "android-gowalk-54707",
+    "storage_bucket": "android-gowalk-54707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722206354790:android:be3c8efa59c584a5326ca7",
+        "android_client_info": {
+          "package_name": "com.example.gowalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722206354790-uns7ckc5co8eu698uce3jnsptpcsv6eo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAufD976ehf8jwhgShYwF2YZi2OqdhUgFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722206354790-uns7ckc5co8eu698uce3jnsptpcsv6eo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
