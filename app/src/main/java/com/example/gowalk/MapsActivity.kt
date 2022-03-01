@@ -1,9 +1,13 @@
 package com.example.gowalk
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,10 +19,14 @@ import com.example.gowalk.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+    // location current I
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -33,24 +41,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+      // current localisation II
+      fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+      // current localisation III
+        fetchLocation()
+
+      // current localisation V
+      findViewById<Button>(R.id.btn_get_location).setOnClickListener{
+          fetchLocation()
+      }
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
+
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         // localisation
-        val lat = 48.8534
-        val long = 2.3488
+        val long =
+        val latitude =
 
-        val currentCity = LatLng(lat,long)
+
+        val currentCity = LatLng(long,latitude)
         /* zoom de la caméra */
         val zoomLevel = 15f
 
@@ -120,6 +133,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 poiMarker.showInfoWindow()
             }
 
+
         }
     }
+
+   // current localisation IV
+    private fun fetchLocation(){
+        val task = fusedLocationProviderClient.lastLocation
+
+       if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)
+          != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),101)
+            return
+        }
+
+       /*task.addOnSuccessListener {
+           if(it != null){
+               Toast.makeText(applicationContext,"${it.latitude} - ${it.longitude}", Toast.LENGTH_SHORT).show()
+               return it
+           }
+       }*/
+        return it
+    }
+
 }
